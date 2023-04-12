@@ -1,0 +1,28 @@
+{
+  "name": "tpoa",
+  "version": "1.0.0",
+  "description": "Tpoa Alternative Open Source to (Proof of Attendance Protocol) POAP",
+  "files": [
+    "**/*.sol",
+    "/contracts/*.sol"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/topaciotrade/TPOA.git"
+  },
+  "bugs": {
+    "url": "https://github.com/topaciotrade/TPOA/issues"
+  },
+  "keywords": [
+    "solidity",
+    "ethereum",
+    "smart",
+    "contracts"
+  ],
+  "author": "Topacio Trade Community <jv@topacio.trade>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/topaciotrade/TPOA/issues"
+  },
+  "homepage": "https://github.com/topaciotrade/TPOA#readme"
+}
