@@ -11,7 +11,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 /**
  * @title TPOA (tokens proof of attendance)
  * @version: v1.0
- * TopacioTrade Contracts (last updated v1.0.1)
+ * TopacioTrade Contracts (last updated v1.0.2)
  * Network: Polygon
  */
 
