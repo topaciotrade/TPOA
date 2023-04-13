@@ -227,7 +227,7 @@ contract AdministratorTPoa {
     string __name;
     string __symbol_prefix;
     uint256 control_tpoas;
-    uint256 block_minutes_active;
+    uint256 public block_minutes_active;
     uint256 public totalMint;
     address owner;
 
@@ -266,6 +266,14 @@ contract AdministratorTPoa {
         TPoaMetaData[address(newTPoa)][control_tpoas] = __uri_hash_meta;
         block_minutes_active = block.timestamp + (__minutes_active * 1 minutes);
         control_tpoas++;
+    }
+
+    function getTimeLeft() public view returns (uint){
+        uint _timeleft = 0;
+        if(block_minutes_active > block.timestamp){
+            _timeleft = (block_minutes_active-block.timestamp);
+        }
+        return _timeleft;
     }
 
     function getImageHashTpoa(address _tpoa_address)
