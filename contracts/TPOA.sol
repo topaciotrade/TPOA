@@ -11,7 +11,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 /**
  * @title TPOA (tokens proof of attendance)
  * @version: v1.0
- * TopacioTrade Contracts (last updated v1.0.2)
+ * TopacioTrade Contracts (last updated v1.0.4)
  * Network: Polygon
  */
 
@@ -230,6 +230,8 @@ contract AdministratorTPoa {
     uint256 public block_minutes_active;
     uint256 public totalMint;
     address owner;
+    mapping(address => uint256) public almacen_collection;
+    address[] KEYS_CONTRACTS;
 
     mapping(address => mapping(uint256 => uint256[])) public TPoaInAddress;
     mapping(address => mapping(uint256 => string)) public TPoaMetaData;
@@ -265,13 +267,19 @@ contract AdministratorTPoa {
         TPoaImgs[address(newTPoa)] = __hash_img;
         TPoaMetaData[address(newTPoa)][control_tpoas] = __uri_hash_meta;
         block_minutes_active = block.timestamp + (__minutes_active * 1 minutes);
+
+        if (almacen_collection[address(newTPoa)] == 0) {
+            almacen_collection[address(newTPoa)] = 1;
+            KEYS_CONTRACTS.push(address(newTPoa));
+        }
+
         control_tpoas++;
     }
 
-    function getTimeLeft() public view returns (uint){
-        uint _timeleft = 0;
-        if(block_minutes_active > block.timestamp){
-            _timeleft = (block_minutes_active-block.timestamp);
+    function getTimeLeft() public view returns (uint256) {
+        uint256 _timeleft = 0;
+        if (block_minutes_active > block.timestamp) {
+            _timeleft = (block_minutes_active - block.timestamp);
         }
         return _timeleft;
     }
@@ -294,10 +302,7 @@ contract AdministratorTPoa {
             tpoas[control_tpoas - 1].balanceOf(destine) == 0,
             "this address has this tpoa"
         );
-        require(
-            address(destine).balance > 0,
-            "Needed some Gas fees."
-        );
+        require(address(destine).balance > 0, "Needed some Gas fees.");
 
         tpoas[control_tpoas - 1].safeMint(
             destine,
@@ -369,11 +374,32 @@ contract AdministratorTPoa {
         return tpoas[_n].totalSupply();
     }
 
-    function getTPoaCollections() public view returns (TPoa[] memory) {
-        return tpoas;
+    function getTPoaCollections() public view returns (address[] memory) {
+        return KEYS_CONTRACTS;
     }
 
     function getCountTPoaCollections() public view returns (uint256) {
-        return tpoas.length;
+        return KEYS_CONTRACTS.length;
+    }
+
+    function remove(address _contractAddres) public onlyOwner {
+        for (uint256 i = 0; i < KEYS_CONTRACTS.length; i++) {
+            if (KEYS_CONTRACTS[i] == _contractAddres) {
+                delete KEYS_CONTRACTS[i];
+            }
+        }
+
+        address[] memory actives_contracts;
+        uint256 ctrl = 0;
+        for (uint256 i = 0; i < KEYS_CONTRACTS.length; i++) {
+            if (KEYS_CONTRACTS[i] != address(0)) {
+                actives_contracts[ctrl] = KEYS_CONTRACTS[i];
+                ctrl++;
+            }
+        }
+
+        KEYS_CONTRACTS = actives_contracts;
+
+        delete almacen_collection[_contractAddres];
     }
 }
