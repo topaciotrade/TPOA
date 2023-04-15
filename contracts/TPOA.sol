@@ -302,7 +302,7 @@ contract AdministratorTPoa {
             tpoas[control_tpoas - 1].balanceOf(destine) == 0,
             "this address has this tpoa"
         );
-        require(address(destine).balance > 0, "Needed some Gas fees.");
+        require(address(msg.sender).balance > 0, "Needed some of Gas fees mint.");
 
         tpoas[control_tpoas - 1].safeMint(
             destine,
