@@ -30,6 +30,24 @@ contract MyCollectibleTPOA is AdministratorTPoa("MyCustomTPoa", "MTPOA") {
 
 ```
 
+Example extension
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.19;
+
+import "tpoa/contracts/TPOA.sol";
+
+// extend AdministratorTPoa & pass Name Collection and some Symbol
+contract MyCollectibleTPOA is AdministratorTPoa("MyCustomTPoa", "MTPOA") {
+    string text = "Hello this is, Wonderfully too easy with TPOA.";
+
+    // add custom methods for this example no consume gas only consult
+    function greeting() public view returns (string memory) {
+        return text;
+    }
+}
+
+```
 
 
 ### Disclaimer
