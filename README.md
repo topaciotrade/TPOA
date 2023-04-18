@@ -8,6 +8,22 @@ Tpoa Alternative Open Source to (Proof of Attendance Protocol) POAP
 - Scale your decentralized application, transparency and with on-chain data.
 
 
+
+##### minimal format, reducide mode
+
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.19;
+import "tpoa/contracts/TPOA.sol";
+
+// extend AdministratorTPoa & pass Name Collection and some Symbol
+contract MyCollectibleTPOA is AdministratorTPoa {
+    constructor() AdministratorTPoa("MyCustomTPoa", "MTPOA") {}
+}
+```
+
+#### way to add custom custom methods.
+
 ```solidity
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.19;
@@ -30,7 +46,9 @@ contract MyCollectibleTPOA is AdministratorTPoa("MyCustomTPoa", "MTPOA") {
 
 ```
 
-Example extension
+
+Example extension and add some method extra
+
 ```solidity
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.19;
