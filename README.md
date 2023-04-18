@@ -29,3 +29,30 @@ contract MyCollectibleTPOA is AdministratorTPoa("MyCustomTPoa", "MTPOA") {
 }
 
 ```
+
+Example extension
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.19;
+
+import "tpoa/contracts/TPOA.sol";
+
+// extend AdministratorTPoa & pass Name Collection and some Symbol
+contract MyCollectibleTPOA is AdministratorTPoa("MyCustomTPoa", "MTPOA") {
+    string text = "Hello this is, Wonderfully too easy with TPOA.";
+
+    // add custom methods for this example no consume gas only consult
+    function greeting() public view returns (string memory) {
+        return text;
+    }
+}
+
+```
+
+
+### Disclaimer
+Because everyone is free to deploy his own contract, any deployment is at your own risk, he cannot promise any guarantee. While we strive to develop correctly, it is impossible to ensure that everything published is sound. If you're unsure about particular content, feel free to raise your concerns on the appropriate talk page.
+
+Nothing in the TPOA should be construed as legal advice or financial advice. If you need legal advice, please contact a lawyer.
+
+By contributing to any development, you agree to assign a copyright for your contribution to the Free Software Foundation. The Free Software Foundation promises always to use either a verbatim copying license or a free documentation license when publishing your contribution. We grant you back all your rights under copyright, including the rights to copy, modify, and redistribute your contributions.
