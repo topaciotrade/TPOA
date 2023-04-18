@@ -11,7 +11,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 /**
  * @title TPOA (tokens proof of attendance)
  * @version: v1.0
- * TopacioTrade Contracts (last updated v1.0.4)
+ * TopacioTrade Contracts (last updated v1.0.5)
  * Network: Polygon
  */
 
@@ -262,6 +262,11 @@ contract AdministratorTPoa {
         string memory __hash_img,
         uint256 __minutes_active
     ) public payable onlyOwner {
+
+        bytes memory tempEmptyStringCheck = bytes(__hash_img);
+        require(tempEmptyStringCheck.length>0,"Hash Image can't be empty");
+        require(__minutes_active > 0,"Need 1 min active as minimal");
+
         TPoa newTPoa = new TPoa(__name, __symbol_prefix);
         tpoas.push(newTPoa);
         TPoaImgs[address(newTPoa)] = __hash_img;
@@ -383,6 +388,11 @@ contract AdministratorTPoa {
     }
 
     function remove(address _contractAddres) public onlyOwner {
+        // if tpoa to remove is the last, then reset time
+        if(tpoas.length > 0 && KEYS_CONTRACTS.length > 0 && address(tpoas[control_tpoas - 1]) == KEYS_CONTRACTS[KEYS_CONTRACTS.length-1]){
+            block_minutes_active = block.timestamp;
+        }
+        
         for (uint256 i = 0; i < KEYS_CONTRACTS.length; i++) {
             if (KEYS_CONTRACTS[i] == _contractAddres) {
                 delete KEYS_CONTRACTS[i];
